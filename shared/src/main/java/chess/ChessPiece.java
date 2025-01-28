@@ -51,16 +51,13 @@ public class ChessPiece {
      * @return Collection of valid moves
      */
     public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition) {
-        PieceMovesCalculator moves = new BishopMovesCalculator();
+        PieceMovesCalculator moves = switch(getPieceType()) {
+            case BISHOP -> new BishopMovesCalculator();
+            case ROOK -> new RookMovesCalculator();
+            case QUEEN -> new QueenMovesCalculator();
+            default -> throw new IllegalStateException("Unexpected value: " + getPieceType());
+        };
 
-        if (board.getPiece(myPosition).getPieceType() == PieceType.BISHOP) {
-            moves = new BishopMovesCalculator();
-            return moves.pieceMoves(board, myPosition);
-        }
-        if (board.getPiece(myPosition).getPieceType() == PieceType.ROOK) {
-            moves = new RookMovesCalculator();
-            return moves.pieceMoves(board, myPosition);
-        }
         return moves.pieceMoves(board, myPosition);
     }
 }
