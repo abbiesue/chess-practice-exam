@@ -57,7 +57,7 @@ public class ChessPiece {
             case QUEEN -> new QueenMovesCalculator();
             case KING -> new KingMovesCalculator();
             case KNIGHT -> new KnightMovesCalculator();
-            default -> throw new IllegalStateException("Unexpected value: " + getPieceType());
+            case PAWN -> new PawnMovesCalculator();
         };
 
         return moves.pieceMoves(board, myPosition);
